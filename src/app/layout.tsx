@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { Nav } from "@/components";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const loveLace = localFont({
+  src: "../../public/fonts/Lovelace.woff",
+  variable: "--font-lovelace",
+  weight: "100 900",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const garet = localFont({
+  src: "../../public/fonts/Garet.woff",
+  variable: "--font-garet",
+  weight: "100 900",
+});
+const themysion = localFont({
+  src: "../../public/fonts/Themysion.woff",
+  variable: "--font-themysion",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${loveLace.variable} ${garet.variable} ${themysion.variable} antialiased`}
       >
-        {children}
+        <Nav />
+        <main>{children}</main>
       </body>
     </html>
   );
