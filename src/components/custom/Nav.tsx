@@ -2,6 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   Drawer,
@@ -12,37 +13,47 @@ import {
 } from "@/components";
 
 const navigationLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Our Story", href: "/our-story" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Venue", href: "/venue" },
+  { label: "Accommodations", href: "/accommodations" },
+  { label: "FAQs", href: "/faq" },
 ];
 
 export default function NavBar() {
+  const pathname = usePathname();
+
   return (
-    <header className="fixed w-full top-0 z-50 pt-2">
+    <header
+      className={`absolute w-full top-0 z-50 pt-2 font-lovelace ${pathname.includes("rsvp") ? "text-foreground" : "text-background"}`}
+    >
       <nav className="flex justify-between md:grid md:grid-cols-2 items-center gap-2 p-4 max-w-[1440px] mx-auto">
-        <Link
-          href="/"
-          className="font-lovelace text-4xl text-white text-nowrap"
-        >
-          J & V
+        <Link href="/" className="font-lovelace text-4xl  text-nowrap">
+          V&J
         </Link>
 
         <div className="flex justify-end gap-8 w-full">
           <DesktopNav />
-          <Link
-            href="/rsvp"
-            className={buttonVariants({
-              variant: "outline",
-              className: "w-fit",
-            })}
-          >
-            RSVP
-          </Link>
+          <RsvpLink />
         </div>
         <MobileNav />
       </nav>
     </header>
+  );
+}
+
+function RsvpLink() {
+  return (
+    <Link
+      href="/rsvp"
+      className={buttonVariants({
+        variant: "default",
+        size: "lg",
+        className: "w-fit text-foreground pt-1 hover-champagne",
+      })}
+    >
+      RSVP
+    </Link>
   );
 }
 
@@ -52,9 +63,7 @@ function DesktopNav() {
       <ul className="flex gap-4">
         {navigationLinks.map(({ label, href }) => (
           <li key={href}>
-            <Link href={href} className="text-white font-garet">
-              {label.toLocaleUpperCase()}
-            </Link>
+            <Link href={href}>{label.toLocaleUpperCase()}</Link>
           </li>
         ))}
       </ul>
@@ -67,7 +76,7 @@ function MobileNav() {
     <div className="flex md:hidden gap-4">
       <Drawer direction="left">
         <DrawerTrigger>
-          <Menu className="text-white" size={30} />
+          <Menu className="" size={30} />
         </DrawerTrigger>
 
         <DrawerContent className="block md:hidden">

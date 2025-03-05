@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Alegreya_SC } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components";
+
+import { Toaster } from "sonner";
 
 const loveLace = localFont({
   src: "../../public/fonts/Lovelace.woff",
@@ -18,6 +21,11 @@ const themysion = localFont({
   variable: "--font-themysion",
   weight: "100 900",
 });
+const alegreyaSC = Alegreya_SC({
+  variable: "--font-alegreyaSc",
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,10 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${loveLace.variable} ${garet.variable} ${themysion.variable} antialiased`}
+        className={`${loveLace.variable} ${garet.variable} ${themysion.variable} ${alegreyaSC.variable} antialiased`}
       >
         <Nav />
         <main>{children}</main>
+        <Toaster />
       </body>
     </html>
   );
