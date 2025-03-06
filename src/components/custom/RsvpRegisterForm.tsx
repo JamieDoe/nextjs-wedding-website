@@ -19,6 +19,16 @@ import {
 
 import { checkIfGustIsAllowed } from "@/app/actions";
 import { rsvpSchema } from "@/lib/formSchemas";
+import { Guest } from "@/types/Guest";
+
+interface RsvpRegisterFormProps {
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  setIsInvited: (isInvited: boolean) => void;
+  setRelatedGuests: (relatedGuests?: Guest[]) => void;
+  setGuest: (guest: Guest) => void;
+}
 
 const initialState: z.infer<typeof rsvpSchema> = {
   first_name: "",
@@ -30,14 +40,9 @@ export default function RsvpRegisterForm({
   setLoading,
   setError,
   setIsInvited,
+  setRelatedGuests,
   setGuest,
-}: {
-  loading: boolean;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
-  setIsInvited: (isInvited: boolean) => void;
-  setGuest: (guest: any) => void;
-}) {
+}: RsvpRegisterFormProps) {
   const form = useForm<z.infer<typeof rsvpSchema>>({
     resolver: zodResolver(rsvpSchema),
     defaultValues: {
@@ -51,7 +56,7 @@ export default function RsvpRegisterForm({
     setLoading(true);
     const response = await checkIfGustIsAllowed(data);
 
-    if (!response?.success) {
+    if (!response?.success || !response?.guest) {
       toast.error(response?.message);
       setError(response?.message ?? "An error occurred");
       setLoading(false);
@@ -60,45 +65,57 @@ export default function RsvpRegisterForm({
 
     setLoading(false);
     setError(null);
+    setGuest(response.guest);
+    setRelatedGuests(response.relatedGuests);
     setIsInvited(true);
     toast.success(response.message);
     return form.reset();
   }
 
   return (
-    <div className="flex flex-col items-center gap-8 w-full max-w-md">
+    <div className="flex flex-col items-center gap-8 w-full">
       <Form {...form}>
         <form
           ref={formRef}
           className="space-y-4 w-full font-lovelace"
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <FormField
-            control={form.control}
-            name="first_name"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="text-lg">First Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="First name" className="h-12" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="last_name"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="text-lg">Last Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Last name" className="h-12" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-row space-x-4 items-start">
+            <FormField
+              control={form.control}
+              name="first_name"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel className="text-lg">First Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="First name"
+                      className="h-12"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="last_name"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel className="text-lg">Last Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Last name"
+                      className="h-12"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <Button
             type="submit"
             disabled={loading}

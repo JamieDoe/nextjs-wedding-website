@@ -23,7 +23,7 @@ export default async function RSVPPage() {
       };
 
   return (
-    <div className="min-h-dvh flex flex-col items-center justify-center gap-2 pt-40">
+    <div className="min-h-dvh flex flex-col items-center gap-2 pt-40 px-4 lg:px-8">
       <div className="container relative flex flex-col items-center justify-center gap-8 text-center z-20 font-lovelace text-foreground">
         <Link
           href={redirectLink.href!}

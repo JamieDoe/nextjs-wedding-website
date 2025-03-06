@@ -25,7 +25,7 @@ export default function NavBar() {
 
   return (
     <header
-      className={`absolute w-full top-0 z-50 pt-2 font-lovelace ${pathname.includes("rsvp") ? "text-foreground" : "text-background"}`}
+      className={`absolute w-full top-0 z-50 pt-2 font-lovelace ${pathname?.includes("rsvp") && "hidden"}`}
     >
       <nav className="flex justify-between md:grid md:grid-cols-2 items-center gap-2 p-4 max-w-[1440px] mx-auto">
         <Link href="/" className="font-lovelace text-4xl  text-nowrap">
