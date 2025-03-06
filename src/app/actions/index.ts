@@ -1,1 +1,1 @@
-export { default as checkIfGustIsAllowed } from "./checkIfGustIsAllowed";
+export { default as checkIfGustIsAllowed } from './checkIfGustIsAllowed'

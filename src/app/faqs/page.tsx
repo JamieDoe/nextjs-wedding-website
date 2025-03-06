@@ -4,5 +4,5 @@ export default function FaqPage() {
       <h1>Frequently Asked Questions</h1>
       <p>Coming soon...</p>
     </div>
-  );
+  )
 }

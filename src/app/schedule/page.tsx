@@ -3,5 +3,5 @@ export default function SchedulePage() {
     <div>
       <h1>Schedule</h1>
     </div>
-  );
+  )
 }
