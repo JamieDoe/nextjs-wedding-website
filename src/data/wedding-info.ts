@@ -50,6 +50,26 @@ export const weddingInfo = {
     time: "14:00",
     description:
       "After the ceremony, we’ll celebrate at The Bell Inn, a historic pub in the New Forest. With its 2 AA Rosette restaurant, central bar, dance floor, and cozy atmosphere, it’s the perfect spot to continue the festivities. Guests will be welcomed with Bucks Fizz on arrival. The inn has 26 rooms available with breakfast included, and there’s plenty of parking on-site.",
+    weddingBreakfast: {
+      time: "16:00",
+      menu: [
+        {
+          title: "Starter",
+          name: "starter",
+          options: ["Smoked Salmon", "Chicken Liver Pate"],
+        },
+        {
+          title: "Main",
+          name: "main",
+          options: ["Roast Beef", "Salmon Fillet"],
+        },
+        {
+          title: "Dessert",
+          name: "dessert",
+          options: ["Sticky Toffee Pudding", "Cheesecake"],
+        },
+      ],
+    },
     images: [
       {
         src: "/images/bell-inn-horses.webp",
