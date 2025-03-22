@@ -20,4 +20,11 @@ const rsvpSubmissionSchema = z.object({
   special_notes: z.string().optional(),
 });
 
-export { rsvpSchema, rsvpSubmissionSchema };
+const rsvpMealSchema = z.object({
+  starter: z.string().optional(),
+  main: z.string().optional(),
+  dessert: z.string().optional(),
+  dietary_requirements: z.string().optional(),
+});
+
+export { rsvpSchema, rsvpSubmissionSchema, rsvpMealSchema };

@@ -23,11 +23,11 @@ import { Guest } from "@/types/Guest";
 
 interface RsvpRegisterFormProps {
   loading: boolean;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
-  setIsInvited: (isInvited: boolean) => void;
-  setRelatedGuests: (relatedGuests?: Guest[]) => void;
-  setGuest: (guest: Guest) => void;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  setIsInvited: React.Dispatch<React.SetStateAction<boolean | null>>;
+  setRelatedGuests: React.Dispatch<React.SetStateAction<Guest[] | null>>;
+  setGuest: React.Dispatch<React.SetStateAction<Guest | null>>;
 }
 
 const initialState: z.infer<typeof rsvpSchema> = {
@@ -66,7 +66,7 @@ export default function RsvpRegisterForm({
     setLoading(false);
     setError(null);
     setGuest(response.guest);
-    setRelatedGuests(response.relatedGuests);
+    setRelatedGuests(response.relatedGuests ?? []);
     setIsInvited(true);
     toast.success(response.message);
     return form.reset();
@@ -98,6 +98,7 @@ export default function RsvpRegisterForm({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="last_name"
